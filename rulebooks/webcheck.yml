@@ -11,3 +11,29 @@
           - https://status.redhat.com
           - https://www.anothercrapwsite.co.uk
           - http://loadofrubbishurl.com
+#
+# How to easily debug output (to get event metadata for instance)
+#
+#  rules:
+#    - name: Debug output
+#      condition: event.url_check.status == "down"
+#      action:
+#        debug:
+
+  rules:
+    - name: "Alert if URL is down (call AAP controller)"
+      condition:
+        any:
+          - event.url_check.status == "down"
+      throttle:
+        once_within: 5 minutes
+        group_by_attributes:
+          - event.url_check.url
+      action:
+        run_job_template:
+          name: "Demo Job Template"
+          organization: "Default"
+          # Need JT prompt-on-launch for the below to work!
+          job_args:
+            extra_vars:
+              website: '{{ event.url_check.url }}'

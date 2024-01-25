@@ -11,3 +11,7 @@
 10. Install eda-server-operator: `kubectl apply -f https://github.com/ansible/eda-server-operator/releases/latest/download/operator.yaml`
 11. Create EDA instance: `AWX_URL=$(minikube service -n awx awx-demo-service --url) envsubst < eda.yaml | kubectl apply -f -`
 12. Get EDA admin secret: `kubectl -n eda-server-operator-system get secret my-eda-admin-password -o jsonpath="{.data.password}" | base64 --decode ; echo`
+
+# Instructions to build Decision Environment
+
+`ansible-builder build -f cfgmgmtcamp2024-de.yml -t quay.io/ricarril/cfgmgmtcamp2024-de:latest`

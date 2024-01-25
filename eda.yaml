@@ -1,0 +1,8 @@
+apiVersion: eda.ansible.com/v1alpha1
+kind: EDA
+metadata:
+  name: my-eda
+  namespace: eda-server-operator-system
+spec:
+  automation_server_url: $AWX_URL
+  service_type: nodeport

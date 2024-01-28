@@ -1,0 +1,14 @@
+---
+- hosts: localhost
+  connection: localhost
+
+  tasks:
+    - name: Get default namespace pods
+      kubernetes.core.k8s_info:
+        kind: Pod
+        namespace: default
+      register: _pods
+
+    - name: Show
+      ansible.builtin.debug:
+        var: _pods

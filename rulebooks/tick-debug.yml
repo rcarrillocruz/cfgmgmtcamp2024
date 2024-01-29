@@ -1,0 +1,10 @@
+- name: Generate periodic events
+  hosts: all
+  sources:
+    - ansible.eda.tick:
+        delay: 5
+  rules:
+    - name: Notify
+      condition: event.meta.source.name == 'ansible.eda.tick'
+      action:
+        debug: 

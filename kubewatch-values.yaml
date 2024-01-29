@@ -1,0 +1,26 @@
+rbac:
+  create: true
+resourcesToWatch:
+  deployment: true
+  replicationcontroller: false
+  replicaset: false
+  daemonset: false
+  services: true
+  pod: true
+  job: false
+  node: true
+  clusterrole: false
+  clusterrolebinding: false
+  serviceaccount: false
+  persistentvolume: true
+  namespace: true
+  secret: false
+  configmap: false
+  ingress: false
+  coreevent: false
+  event: false
+slack:
+  enabled: false
+webhook:
+  enabled: true
+  url: 'https://bin.webhookrelay.com/v1/webhooks/a8c91140-ed11-4829-b505-2159b1c7ba90'

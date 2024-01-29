@@ -1,0 +1,11 @@
+- name: Listen for newly added resources
+  hosts: all
+  sources:
+    - ansible.eda.webhook:
+        hosts: 0.0.0.0
+        port: 5000
+  rules:
+    - name: Notify
+      condition: event.meta.source.name == 'ansible.eda.webhook'
+      action:
+        debug:   

@@ -23,4 +23,4 @@ slack:
   enabled: false
 webhook:
   enabled: true
-  url: 'https://bin.webhookrelay.com/v1/webhooks/a8c91140-ed11-4829-b505-2159b1c7ba90'
+  url: 'http://192.168.49.2:30955'

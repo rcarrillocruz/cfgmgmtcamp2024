@@ -23,4 +23,4 @@ slack:
   enabled: false
 webhook:
   enabled: true
-  url: 'http://192.168.49.2:30955'
+  url: 'http://webhook-debug-aap.apps.ricky-dev.ocp4.testing.ansible.com'

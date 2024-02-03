@@ -1,0 +1,51 @@
+- hosts: all
+
+  tasks:
+    - ansible.builtin.dnf:
+        name: 
+          - podman
+          - slirp4netns
+        state: latest
+      become: true
+    - name: Enable lingering for ansible_user
+      ansible.builtin.command: loginctl enable-linger {{ ansible_user_id }}
+      args:
+        creates: '/var/lib/systemd/linger/{{ ansible_user_id }}'
+
+    - name: Allow rootless container to bind port 80
+      ansible.posix.sysctl:
+        name: net.ipv4.ip_unprivileged_port_start
+        value: "80"
+        sysctl_set: true
+        reload: true
+      become: true
+
+    - name: Create the application data volume
+      containers.podman.podman_volume:
+        name: app_data
+      register: _app_data_volume
+
+    - name: Copy index.html to volume
+      ansible.builtin.copy:
+        src: index.html
+        dest: '{{ _app_data_volume.volume.Mountpoint }}'
+
+    - name: Run containerized application and manage it with systemd
+      containers.podman.podman_container:
+        name: devconf
+        image: docker.io/nginxinc/nginx-unprivileged:latest
+        generate_systemd:
+          container_prefix: ''
+          path: '{{ ansible_user_dir }}/.config/systemd/user'
+        ports:
+          - 80:8080
+        volume:
+          - app_data:/usr/share/nginx/html:Z
+        state: created
+
+    - name: Restart systemd in user scope
+      ansible.builtin.systemd:
+        name: devconf.service
+        state: started
+        scope: user
+        enabled: true 

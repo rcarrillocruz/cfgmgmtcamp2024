@@ -1,0 +1,15 @@
+- name: Listen for newly added resources
+  hosts: all
+  sources:
+    - ansible.eda.webhook:
+        hosts: 0.0.0.0
+        port: 5000
+  rules:
+    - name: Configure default quota on new namespace
+      condition: event.payload.eventmeta.kind == 'Namespace' and event.payload.eventmeta.reason == 'Created'
+      action:
+        run_template: 
+          name: "Configure Namespace Quota"
+          organization: "Default"
+          job_vars:
+            namespace: "{{ event.payload.eventmeta.name }}"

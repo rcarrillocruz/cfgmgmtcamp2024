@@ -6,7 +6,7 @@
           apiVersion: v1
           kind: ResourceQuota
           metadata:
-            namespace: "{{ event.payload.eventmeta.name }}" 
+            namespace: "{{ namespace }}"
             name: namespace-quota
           spec:
             hard:

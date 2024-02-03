@@ -2,7 +2,7 @@
   hosts: all
   sources:
     - ansible.eda.webhook:
-        hosts: 0.0.0.0
+        host: 0.0.0.0
         port: 5000
   rules:
     - name: Configure default quota on new namespace

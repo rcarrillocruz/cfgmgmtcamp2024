@@ -32,7 +32,7 @@
 
     - name: Run containerized application and manage it with systemd
       containers.podman.podman_container:
-        name: devconf
+        name: cfgmgmtcamp2024
         image: docker.io/nginxinc/nginx-unprivileged:latest
         generate_systemd:
           container_prefix: ''
@@ -45,7 +45,8 @@
 
     - name: Restart systemd in user scope
       ansible.builtin.systemd:
-        name: devconf.service
+        name: cfgmgmtcamp2024.service
         state: started
         scope: user
         enabled: true 
+        daemon_reload: true

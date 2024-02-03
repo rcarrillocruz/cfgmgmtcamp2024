@@ -11,5 +11,5 @@
         run_job_template: 
           name: "Configure Namespace Quota"
           organization: "Default"
-          job_vars:
+          job_args:
             namespace: "{{ event.payload.eventmeta.name }}"

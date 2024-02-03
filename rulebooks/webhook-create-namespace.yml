@@ -8,7 +8,7 @@
     - name: Configure default quota on new namespace
       condition: event.payload.eventmeta.kind == 'Namespace' and event.payload.eventmeta.reason == 'Created'
       action:
-        run_template: 
+        run_job_template: 
           name: "Configure Namespace Quota"
           organization: "Default"
           job_vars:

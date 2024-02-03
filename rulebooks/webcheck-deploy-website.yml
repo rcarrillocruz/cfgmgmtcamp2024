@@ -1,0 +1,24 @@
+---
+- name: Web Site Checks Rulebook
+  hosts: all
+  
+  sources:
+    - name: Is cfgmgmtcamp2024 website down?
+      ansible.eda.url_check:
+        delay: 30
+        urls:
+          - http://ec2-18-200-242-141.eu-west-1.compute.amazonaws.com
+
+  rules:
+    - name: "Alert if URL is down (call AAP controller)"
+      condition:
+        any:
+          - event.url_check.status == "down"
+      throttle:
+        once_within: 5 minutes
+        group_by_attributes:
+          - event.url_check.url
+      action:
+        run_job_template:
+          name: "Deploy Website"
+          organization: "Default"

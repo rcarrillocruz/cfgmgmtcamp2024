@@ -14,6 +14,3 @@
         run_job_template: 
           name: "Configure Namespace Quota"
           organization: "Default"
-          job_args:
-            extra_vars:
-              namespace: "{{ ansible_eda.event.payload.eventmeta.name }}"

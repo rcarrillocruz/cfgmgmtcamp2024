@@ -1,12 +1,14 @@
 - hosts: all
 
   tasks:
+    - ansible.builtin.debug:
+        msg: '{{ ansible_eda.event }}'
     - kubernetes.core.k8s:
         definition:
           apiVersion: v1
           kind: ResourceQuota
           metadata:
-            namespace: "{{ namespace }}"
+            namespace: lol
             name: namespace-quota
           spec:
             hard:

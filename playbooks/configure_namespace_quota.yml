@@ -1,8 +1,9 @@
 - hosts: all
-
+  vars:
+    namespace: "{{ ansible_eda.event.payload.eventmeta.name }}"
   tasks:
     - ansible.builtin.debug:
-        msg: '{{ ansible_eda.event }}'
+        msg: '{{ namespace }}'
     - kubernetes.core.k8s:
         definition:
           apiVersion: v1

@@ -6,10 +6,14 @@
         port: 5000
   rules:
     - name: Configure default quota on new namespace
-      condition: event.payload.eventmeta.kind == 'Namespace' and event.payload.eventmeta.reason == 'Created'
+      condition:
+        all:
+         - event.payload.eventmeta.kind == 'Namespace'
+         - event.payload.eventmeta.reason == 'Created'
       action:
         run_job_template: 
           name: "Configure Namespace Quota"
           organization: "Default"
           job_args:
-            namespace: "{{ event.payload.eventmeta.name }}"
+            extra_vars:
+              namespace: "{{ event.payload.eventmeta.name }}"

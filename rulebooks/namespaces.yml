@@ -6,7 +6,7 @@
         port: 5000
   rules:
     - name: Notify to Slack when a namespace has been created
-      condition: event.payload.eventmeta.kind == 'Namespace' and event.payload.eventmeta.reason == 'Created'
+      condition: event.payload.eventmeta.kind == 'Namespace'
       action:
         run_template: 
           name: notify-namespace-created.yml

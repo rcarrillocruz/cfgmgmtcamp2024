@@ -11,10 +11,9 @@
          - event.payload.eventmeta.kind == 'Namespace'
          - event.payload.eventmeta.reason == 'Created'
       action:
-        debug:
-          #        run_job_template: 
-          #name: "Configure Namespace Quota"
-          #organization: "Default"
-          #job_args:
-          #  extra_vars:
-          #    namespace: "{{ payload.eventmeta.name }}"
+        run_job_template: 
+          name: "Configure Namespace Quota"
+          organization: "Default"
+          job_args:
+            extra_vars:
+              namespace: "{{ payload.eventmeta.name }}"

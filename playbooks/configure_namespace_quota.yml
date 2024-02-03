@@ -1,0 +1,16 @@
+- hosts: all
+
+  tasks:
+    - kubernetes.core.k8s:
+        definition:
+          apiVersion: v1
+          kind: ResourceQuota
+          metadata:
+            namespace: "{{ event.payload.eventmeta.name }}" 
+            name: namespace-quota
+          spec:
+            hard:
+              requests.cpu: "1"
+              requests.memory: 1Gi
+              limits.cpu: "2"
+              limits.memory: 2Gi

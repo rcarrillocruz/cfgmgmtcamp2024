@@ -1,0 +1,13 @@
+- name: Listen for newly added resources
+  hosts: all
+  sources:
+    - ansible.eda.webhook:
+        host: 0.0.0.0
+        port: 5000
+  rules:
+    - name: Notify
+      condition: event.meta.source.name == 'ansible.eda.webhook'
+      action:
+        run_job_template:
+          name: "Deploy Website"
+          organization: "Default"

@@ -16,4 +16,4 @@
           organization: "Default"
           job_args:
             extra_vars:
-              namespace: "{{ event.payload.eventmeta.name }}"
+              namespace: "{{ payload.eventmeta.name }}"

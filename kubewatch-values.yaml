@@ -8,7 +8,7 @@ resourcesToWatch:
   services: false
   pod: false
   job: false
-  node: true
+  node: false
   clusterrole: false
   clusterrolebinding: false
   serviceaccount: false
